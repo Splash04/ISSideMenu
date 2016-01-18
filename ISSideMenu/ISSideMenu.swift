@@ -1,6 +1,6 @@
 //
-//  SSASideMenu.swift
-//  SSASideMenuExample
+//  ISSideMenu.swift
+//  ISSideMenuExample
 //
 //  Created by Sebastian Andersen on 06/10/14.
 //  Copyright (c) 2015 Sebastian Andersen. All rights reserved.
@@ -11,16 +11,16 @@ import UIKit
 
 extension UIViewController {
     
-    var sideMenuViewController: SSASideMenu? {
+    var sideMenuViewController: ISSideMenu? {
         get {
             return getSideViewController(self)
         }
     }
     
-    private func getSideViewController(viewController: UIViewController) -> SSASideMenu? {
+    private func getSideViewController(viewController: UIViewController) -> ISSideMenu? {
         if let parent = viewController.parentViewController {
-            if parent is SSASideMenu {
-                return parent as? SSASideMenu
+            if parent is ISSideMenu {
+                return parent as? ISSideMenu
             }else {
                 return getSideViewController(parent)
             }
@@ -40,24 +40,24 @@ extension UIViewController {
     }
 }
 
-@objc protocol SSASideMenuDelegate {
+@objc protocol ISSideMenuDelegate {
     
-    optional func sideMenuDidRecognizePanGesture(sideMenu: SSASideMenu, recongnizer: UIPanGestureRecognizer)
-    optional func sideMenuWillShowMenuViewController(sideMenu: SSASideMenu, menuViewController: UIViewController)
-    optional func sideMenuDidShowMenuViewController(sideMenu: SSASideMenu, menuViewController: UIViewController)
-    optional func sideMenuWillHideMenuViewController(sideMenu: SSASideMenu, menuViewController: UIViewController)
-    optional func sideMenuDidHideMenuViewController(sideMenu: SSASideMenu, menuViewController: UIViewController)
+    optional func sideMenuDidRecognizePanGesture(sideMenu: ISSideMenu, recongnizer: UIPanGestureRecognizer)
+    optional func sideMenuWillShowMenuViewController(sideMenu: ISSideMenu, menuViewController: UIViewController)
+    optional func sideMenuDidShowMenuViewController(sideMenu: ISSideMenu, menuViewController: UIViewController)
+    optional func sideMenuWillHideMenuViewController(sideMenu: ISSideMenu, menuViewController: UIViewController)
+    optional func sideMenuDidHideMenuViewController(sideMenu: ISSideMenu, menuViewController: UIViewController)
     
 }
 
-class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
+class ISSideMenu: UIViewController, UIGestureRecognizerDelegate {
     
-    enum SSASideMenuPanDirection: Int {
+    enum ISSideMenuPanDirection: Int {
         case Edge = 0
         case EveryWhere = 1
     }
     
-    enum SSASideMenuType: Int {
+    enum ISSideMenuType: Int {
         case Scale = 0
         case Slip = 1
     }
@@ -68,7 +68,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         case Light = 2
     }
     
-    private enum SSASideMenuSide: Int {
+    private enum ISSideMenuSide: Int {
         case Left = 0
         case Right = 1
     }
@@ -137,14 +137,14 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         
         var animationDuration: Float = 0.35
         var panGestureEnabled: Bool = true
-        var panDirection: SSASideMenuPanDirection = .Edge
-        var type: SSASideMenuType = .Scale
+        var panDirection: ISSideMenuPanDirection = .Edge
+        var type: ISSideMenuType = .Scale
         var panMinimumOpenThreshold: UInt = 60
         var menuViewControllerTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.5, 1.5)
         var backgroundTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.7, 1.7)
         var endAllEditing: Bool = false
         
-        init(animationDuration: Float = 0.35, panGestureEnabled: Bool = true, panDirection: SSASideMenuPanDirection = .Edge, type: SSASideMenuType = .Scale, panMinimumOpenThreshold: UInt = 60, menuViewControllerTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.5, 1.5), backgroundTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.7, 1.7), endAllEditing: Bool = false) {
+        init(animationDuration: Float = 0.35, panGestureEnabled: Bool = true, panDirection: ISSideMenuPanDirection = .Edge, type: ISSideMenuType = .Scale, panMinimumOpenThreshold: UInt = 60, menuViewControllerTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.5, 1.5), backgroundTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.7, 1.7), endAllEditing: Bool = false) {
             
             self.animationDuration = animationDuration
             self.panGestureEnabled = panGestureEnabled
@@ -230,15 +230,15 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
     // MARK : Public Properties: SideMenu
     @IBInspectable var animationDuration: Float = 0.35
     @IBInspectable var panGestureEnabled: Bool = true
-    @IBInspectable var panDirection: SSASideMenuPanDirection = .Edge
-    @IBInspectable var type: SSASideMenuType = .Scale
+    @IBInspectable var panDirection: ISSideMenuPanDirection = .Edge
+    @IBInspectable var type: ISSideMenuType = .Scale
     @IBInspectable var panMinimumOpenThreshold: UInt = 60
     @IBInspectable var menuViewControllerTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.5, 1.5)
     @IBInspectable var backgroundTransformation: CGAffineTransform = CGAffineTransformMakeScale(1.7, 1.7)
     
     // MARK : Internal Private Properties
     
-    weak var delegate: SSASideMenuDelegate?
+    weak var delegate: ISSideMenuDelegate?
     
     private var visible: Bool = false
     private var leftMenuVisible: Bool = false
@@ -397,7 +397,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func showMenuViewController(side: SSASideMenuSide, menuViewController: UIViewController) {
+    private func showMenuViewController(side: ISSideMenuSide, menuViewController: UIViewController) {
         
         menuViewController.view.hidden = false
         
@@ -424,7 +424,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
     }
     
     
-    private func animateMenuViewController(side: SSASideMenuSide) {
+    private func animateMenuViewController(side: ISSideMenuSide) {
         
         if type == .Scale {
             contentViewContainer.transform = CGAffineTransformMakeScale(CGFloat(contentViewScaleValue), CGFloat(contentViewScaleValue))
@@ -459,7 +459,7 @@ class SSASideMenu: UIViewController, UIGestureRecognizerDelegate {
         }
     }
     
-    private func animateMenuViewControllerCompletion(side: SSASideMenuSide, menuViewController: UIViewController) {
+    private func animateMenuViewControllerCompletion(side: ISSideMenuSide, menuViewController: UIViewController) {
         
         if !visible {
             self.delegate?.sideMenuDidShowMenuViewController?(self, menuViewController: menuViewController)
