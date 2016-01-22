@@ -33,8 +33,49 @@ Swift. A iOS 7/8 style side menu with parallax effect.
     }
 ```
 ###Installation 
-As for now please clone the repository and drag the source folder into your project to use SSASideMenu. (Cocoapods & Carthage
-support coming soon) 
+## Installation
+
+### CocoaPods
+
+The recommended approach for installating `ISSideMenu` is via the [CocoaPods](http://cocoapods.org/) package manager, as it provides flexible dependency management and dead simple installation.
+For best results, it is recommended that you install via CocoaPods >= **0.28.0** using Git >= **1.8.0** installed via Homebrew.
+
+Install CocoaPods if not already available:
+
+``` bash
+$ [sudo] gem install cocoapods
+$ pod setup
+```
+
+Change to the directory of your Xcode project:
+
+``` bash
+$ cd /path/to/MyProject
+$ touch Podfile
+$ edit Podfile
+```
+
+Edit your Podfile and add ISSideMenu:
+
+``` bash
+platform :ios, '8.0'
+pod 'ISSideMenu', '~> 1.0.0'
+```
+
+Install into your Xcode project:
+
+``` bash
+$ pod install
+```
+
+Open your project in Xcode from the .xcworkspace file (not the usual project file)
+
+``` bash
+$ open MyProject.xcworkspace
+```
+
+Please note that if your installation fails, it may be because you are installing with a version of Git lower than CocoaPods is expecting. Please ensure that you are running Git >= **1.8.0** by executing `git --version`. You can get a full picture of the installation details by executing `pod install --verbose`.
+
 ###Customization
 ```swift
     
